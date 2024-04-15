@@ -22,7 +22,6 @@ freqz(b, 1, 512);
 title('Frequency Response - fir1 High-pass');
 figure(3);
 plot(F, abs(fftshift(fft(b, NumFFT))));
-title('Magnitude Spectrum - fir1 Filter');
 
 %% b
 % Design and apply FIR high-pass filter using firls
@@ -36,7 +35,6 @@ freqz(b, 1, 512);
 title('Frequency Response - firls High-pass');
 figure(6);
 plot(F, abs(fftshift(fft(b, NumFFT))));
-title('Magnitude Spectrum - firls Filter');
 
 %% c
 % Design and apply FIR high-pass filter using firpm
@@ -50,32 +48,28 @@ freqz(b, 1, 512);
 title('Frequency Response - firpm High-pass');
 figure(9);
 plot(F, abs(fftshift(fft(b, NumFFT))));
-title('Magnitude Spectrum - firpm Filter');
 
 %% d
+% Plot original and noisy signals
 figure(1);
-subplot(121); plot(y0(1:100)); 
-title('First 100 samples');
-subplot(122); plot(y0(end-100:end)); 
-title('Last 100 samples');
+subplot(121); plot(y0); title('Original Signal');
+subplot(122); plot(yw); title('Noisy Signal');
 
+% First/Last 100 samples of filtered signals
+title('Magnitude Spectrum - fir1 Filter');
 figure(4);
-subplot(121); plot(yf(1:100)); 
-title('First 100 samples - fir1 Filtered');
-subplot(122); plot(yf(end-100:end)); 
-title('Last 100 samples - fir1 Filtered');
+subplot(121); plot(yf(1:100)); title('First 100 samples - fir1 Filtered');
+subplot(122); plot(yf(end-100:end)); title('Last 100 samples - fir1 Filtered');
 
+title('Magnitude Spectrum - firls Filter');
 figure(7);
-subplot(121); plot(yf(1:100)); 
-title('First 100 samples - firls Filtered');
-subplot(122); plot(yf(end-100:end)); 
-title('Last 100 samples - firls Filtered');
+subplot(121); plot(yf(1:100)); title('First 100 samples - firls Filtered');
+subplot(122); plot(yf(end-100:end)); title('Last 100 samples - firls Filtered');
 
+title('Magnitude Spectrum - firpm Filter');
 figure(10);
-subplot(121); plot(yf(1:100)); 
-title('First 100 samples - firpm Filtered');
-subplot(122); plot(yf(end-100:end)); 
-title('Last 100 samples - firpm Filtered');
+subplot(121); plot(yf(1:100)); title('First 100 samples - firpm Filtered');
+subplot(122); plot(yf(end-100:end)); title('Last 100 samples - firpm Filtered');
 
 %% e
 % Compute MSE for each filter
