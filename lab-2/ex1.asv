@@ -1,0 +1,50 @@
+close all;clear;clc;
+
+N = 29;
+fc = 0.2;
+NumFFT = 4096;
+Freqs = linspace(-pi,pi,NumFFT);
+
+hc = fir1(N-1,fc,'low');
+[H,w] = freqz(hc,1,512);
+
+figure(1);
+plot(Freqs, abs(fftshift(fft(hc,NumFFT))));
+title('Μέτρο απόκρισης συχνότητας fir1 lowpass')
+
+
+hc = fir1(N-1,fc,'high');
+[H,w] = freqz(hc,1,512);
+
+figure(2);
+plot(Freqs, abs(fftshift(fft(hc,NumFFT))));
+title('Μέτρο απόκρισης συχνότητας fir1 highpass')
+
+hc = firls(N-1,[0, 0.1, 0.35, 1],[1 1 0 0],[1 1]);
+[H,w] = freqz(hc,1,512);
+
+figure(3);
+plot(Freqs, abs(fftshift(fft(hc,NumFFT))));
+title('Μέτρο απόκρισης συχνότητας firls lowpass')
+
+hc = firls(N-1,[0, 0.1, 0.35, 1],[0 0 1 1],[1 1]);
+[H,w] = freqz(hc,1,512);
+
+figure(4);
+plot(Freqs, abs(fftshift(fft(hc,NumFFT))));
+title('Μέτρο απόκρισης συχνότητας firls highpass')
+
+hc = firpm(N-1,[0, 0.1, 0.35, 1],[1 1 0 0],[1 1]);
+[H,w] = freqz(hc,1,512);
+
+figure(5);
+plot(Freqs, abs(fftshift(fft(hc,NumFFT))));
+title('Μέτρο απόκρισης συχνότητας firpm lowpass')
+
+hc = firpm(N-1,[0, 0.1, 0.35, 1],[0 0 1 1],[1 1]);
+[H,w] = freqz(hc,1,512);
+
+figure(6);
+plot(Freqs, abs(fftshift(fft(hc,NumFFT))));
+title('Μέτρο απόκρισης συχνότητας firpm highpass')
+

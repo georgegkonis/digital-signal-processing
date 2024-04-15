@@ -1,42 +1,45 @@
 close all;clear;clc;
 
-N = 31;
-fc = 0.48;
-
-hc = fir1(N-1,fc,'low');
-
-stem(hc);
-
-freqz(hc,1,512);
-
+N = 29;
+fc = 0.4;
 NumFFT = 4096;
-Freqs = linspace(-pi,pi,NumFFT);
+Freqs = linspace(-1, 1, NumFFT) * pi;
 
-figure
-plot(Freqs, abs(fftshift(fft(hc,NumFFT))));
-title('Filter frequency response')
-grid on
+%% a
+% Low-pass filter using fir1
+hc = fir1(N-1, fc, 'low');
+figure(1);
+plot(Freqs/pi, abs(fftshift(fft(hc, NumFFT))));
+title('Magnitude Response of Low-pass FIR Filter (fir1)');
 
-figure
-plot(Freqs, 20*log10(abs(fftshift(fft(hc,NumFFT)))));
-title('Filter frequency response (dB)')
-grid on
+% High-pass filter using fir1
+hc = fir1(N-1, fc, 'high');
+figure(2);
+plot(Freqs/pi, abs(fftshift(fft(hc, NumFFT))));
+title('Magnitude Response of High-pass FIR Filter (fir1)');
 
-figure
-plot(Freqs, angle(fft(hc,NumFFT)));
-title('Filter frequency response (dB)')
-grid on
+%% b
+% Low-pass filter using firls
+hc = firls(N-1, [0 0.1 0.35 1], [1 1 0 0], [1 1]);
+figure(3);
+plot(Freqs/pi, abs(fftshift(fft(hc, NumFFT))));
+title('Magnitude Response of Low-pass FIR Filter (firls)');
 
-%%
-h_low = firls(N-1,[0,0.2, 0.3, 1] , [1 1 0 0]);
-h_high = firls(N-1,[0,0.2, 0.3, 1] , [0 0 1 1]);
+% High-pass filter using firls
+hc = firls(N-1, [0 0.1 0.35 1], [0 0 1 1], [1 1]);
+figure(4);
+plot(Freqs/pi, abs(fftshift(fft(hc, NumFFT))));
+title('Magnitude Response of High-pass FIR Filter (firls)');
 
-figure
-plot(Freqs, 20*log(abs(fftshift(fft(h_low,NumFFT)))));
-title('Filter frequency response (dB)')
-grid on
+%% c
+% Low-pass filter using firpm
+hc = firpm(N-1, [0 0.1 0.35 1], [1 1 0 0], [1 1]);
+figure(5);
+plot(Freqs/pi, abs(fftshift(fft(hc, NumFFT))));
+title('Magnitude Response of Low-pass FIR Filter (firpm)');
 
-hold on
-plot(Freqs, 20*log10(abs(fftshift(fft(h_high,NumFFT)))));
-title('Filter frequency response (dB)')
-grid on
+% High-pass filter using firpm
+hc = firpm(N-1, [0 0.1 0.35 1], [0 0 1 1], [1 1]);
+figure(6);
+plot(Freqs/pi, abs(fftshift(fft(hc, NumFFT))));
+title('Magnitude Response of High-pass FIR Filter (firpm)');
