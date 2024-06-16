@@ -6,6 +6,7 @@ NumFFT = 4096;
 Freqs = linspace(-1, 1, NumFFT) * pi;
 
 %% a
+
 % Low-pass filter using fir1
 hc = fir1(N-1, fc, 'low');
 figure(1);
@@ -19,6 +20,7 @@ plot(Freqs/pi, abs(fftshift(fft(hc, NumFFT))));
 title('Magnitude Response of High-pass FIR Filter (fir1)');
 
 %% b
+
 % Low-pass filter using firls
 hc = firls(N-1, [0 0.1 0.35 1], [1 1 0 0], [1 1]);
 figure(3);
@@ -32,6 +34,7 @@ plot(Freqs/pi, abs(fftshift(fft(hc, NumFFT))));
 title('Magnitude Response of High-pass FIR Filter (firls)');
 
 %% c
+
 % Low-pass filter using firpm
 hc = firpm(N-1, [0 0.1 0.35 1], [1 1 0 0], [1 1]);
 figure(5);
